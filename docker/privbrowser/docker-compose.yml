@@ -32,6 +32,9 @@ services:
       - TZ=${TZ}
     depends_on:
       - vpn
+    devices:
+      # Pass the AMD graphics card into the browser
+      - /dev/dri:/dev/dri
         # LibreWolf won't start until the VPN successfully connects
 
     restart: unless-stopped
