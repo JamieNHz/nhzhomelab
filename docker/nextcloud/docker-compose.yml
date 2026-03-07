@@ -1,0 +1,35 @@
+services:
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud:latest
+    container_name: nextcloud
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      # Stores the Nextcloud application files and web server configs
+      - ./config:/config
+      # Maps your MergerFS pool so your actual files don't fill up your tiny GMKtec drive!
+      - ${DATA_DIR}:/data
+    ports:
+      # LSIO Nextcloud runs on secure HTTPS port 443 internally
+      - "${NEXTCLOUD_PORT}:443"
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: nextcloud_db
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      # Stores the actual database tables locally
+      - ./db:/config
+    restart: unless-stopped
