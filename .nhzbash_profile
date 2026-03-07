@@ -1,0 +1,24 @@
+# This is dot sourced into .bash_profile
+
+
+# Function to create a symlink to the master .env file in the app folders
+envlink() {
+    local target="../../.env"
+    
+    # Check 1: Does the master .env actually exist two folders up?
+    if [ ! -f "$target" ]; then
+        echo "Error: Master .env not found at $target"
+        echo "Please make sure you are in the right app folder (e.g., /docker/plex/)"
+        return 1
+    fi
+
+    # Check 2: Does a .env file or symlink already exist right here?
+    if [ -e ".env" ] || [ -L ".env" ]; then
+        echo "Warning: A .env file or symlink already exists in this directory."
+        return 1
+    fi
+
+    # If both checks pass, create the symlink
+    ln -s "$target" .env
+    echo "Success: Symlink created pointing to $target"
+}
