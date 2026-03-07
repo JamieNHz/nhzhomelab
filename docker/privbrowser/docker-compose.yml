@@ -16,7 +16,8 @@ services:
       #- SERVER_COUNTRIES=Switzerland
     ports:
       # MAGIC TRICK: We expose LibreWolf's port (3000) on the VPN container!
-      - "3000:3000"
+      - "3000:3000" 
+      - "3001:3001"
     restart: unless-stopped
 
   browser:
