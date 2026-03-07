@@ -11,13 +11,13 @@ services:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
       # Replace this with your WireGuard Private Key from the ProtonVPN dashboard
-      - WIREGUARD_PRIVATE_KEY=GLiQ7y10076ApHt92hdFA+4qRp+78MGEliAnENYEwG8=
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
       # Optional: Pick a specific country or let it pick the fastest
       #- SERVER_COUNTRIES=Switzerland
     ports:
       # MAGIC TRICK: We expose LibreWolf's port (3000) on the VPN container!
-      - "3000:3000" 
-      - "3001:3001"
+      - "${BROWSER_HTTP_PORT}:3000" 
+      - "${BROWSER_HTTPS_PORT}:3001"
     restart: unless-stopped
 
   browser:
@@ -28,7 +28,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=${TZ}
     depends_on:
       - vpn
         # LibreWolf won't start until the VPN successfully connects
