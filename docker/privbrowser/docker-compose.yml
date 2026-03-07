@@ -1,9 +1,8 @@
 services:
+  
   vpn:
     image: qmcgaw/gluetun
     container_name: proton_vpn
-    env_file: 
-      - ../../.env
     # NET_ADMIN is required for the container to create VPN tunnels
     cap_add:
       - NET_ADMIN
