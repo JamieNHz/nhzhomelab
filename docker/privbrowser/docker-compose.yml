@@ -2,6 +2,8 @@ services:
   vpn:
     image: qmcgaw/gluetun
     container_name: proton_vpn
+    env_file: 
+      - ../../.env
     # NET_ADMIN is required for the container to create VPN tunnels
     cap_add:
       - NET_ADMIN
@@ -26,8 +28,8 @@ services:
     # This is the line that forces LibreWolf inside the VPN's network namespace
     network_mode: "service:vpn"
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
     depends_on:
       - vpn
