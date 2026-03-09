@@ -31,3 +31,7 @@ alias dcupb="docker compose up --build -d"
 
 # Alias to quickly stop and remove all Docker containers, networks, and volumes
 alias dcdwn='docker compose down'
+
+# NextCloud aliases
+# Alias to quickly scan all files in NextCloud (useful after adding files directly to the MergerFS pool)
+alias nextsync="docker exec -it nextcloud sudo -u abc php /app/www/public/occ files:scan --all"
