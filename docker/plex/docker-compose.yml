@@ -11,7 +11,8 @@ services:
       # Local folder for Plex metadata, cache, and posters
       - ./config:/config
       # Pulls your MergerFS pool path from the master .env
-      - ${MEDIA_DIR}:/media
+      - ${MEDIA_DIR}/TVShows:/TVShows
+      - ${MEDIA_DIR}/Movies:/Movies
     ports:
       # Pulls your custom port from the master .env
       - "${PLEX_PORT}:32400"
