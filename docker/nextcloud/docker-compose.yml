@@ -10,7 +10,7 @@ services:
       # Stores the Nextcloud application files and web server configs
       - ./config:/config
       # Maps your MergerFS pool so your actual files don't fill up your tiny GMKtec drive!
-      - ${DATA_DIR}/data:/data
+      - ${DATA_DIR}:/data
     ports:
       # LSIO Nextcloud runs on secure HTTPS port 443 internally
       - "${NEXTCLOUD_PORT}:443"
