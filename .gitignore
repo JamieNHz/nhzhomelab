@@ -3,3 +3,6 @@
 
 # Ignoring Plex config directory
 /docker/plex/config/
+
+# ignore Nextcloud config directory
+/docker/nextcloud/config/
