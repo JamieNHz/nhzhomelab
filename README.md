@@ -58,10 +58,14 @@ fi
 
 [x] Phase 2: Implement Docker Compose architecture for media and web apps.
 
-[ ] Phase 3: Deploy MergerFS + SnapRAID for the USB-C storage pool.
+[x] Phase 3: Deploy MergerFS + SnapRAID for the USB-C storage pool.
 
-[ ] Phase 4: Establish secure remote access (Zero Trust / Tailscale).
+[x] Phase 4: Setup docker containers, nextcloud, and plex
 
-[ ] Phase 5: Migrate core services from Docker Compose to a lightweight Kubernetes distribution (K3s/MicroK8s).
+[x] Phase 5: Establish secure remote access (Zero Trust / Tailscale).
+
+[ ] Phase 6: Set up nginx reverse proxy to resolve dns names and create certificates for nextcloud, and plex
+
+[ ] Phase 7: Migrate core services from Docker Compose to a lightweight Kubernetes distribution (K3s/MicroK8s).
 
 Note: This repository is customized for my specific hardware and network. If you are cloning this for your own use, please review the .env.example files and replace the IP addresses, volume mappings, and PUID/PGID variables to match your system.
