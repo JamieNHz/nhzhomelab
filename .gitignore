@@ -6,3 +6,6 @@
 
 # ignore Nextcloud config directory
 /docker/nextcloud/config/
+
+# Ignoring Nextcloud data directory (maps to your MergerFS pool)
+/docker/nextcloud/db/
