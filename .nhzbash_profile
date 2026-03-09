@@ -22,3 +22,12 @@ envlink() {
     ln -s "$target" .env
     echo "Success: Symlink created pointing to $target"
 }
+
+# Alias to quickly start all Docker containers in detached mode
+alias dcup='docker compose up -d'
+
+# Alias to quickly build and start all Docker containers in detached mode
+alias dcupb="docker compose up --build -d"
+
+# Alias to quickly stop and remove all Docker containers, networks, and volumes
+alias dcdwn='docker compose down'
