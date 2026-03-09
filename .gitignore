@@ -1,2 +1,5 @@
 # Ignoring .env file
 .env
+
+# Ignoring Plex config directory
+/docker/plex/config/
