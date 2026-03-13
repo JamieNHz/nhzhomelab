@@ -14,6 +14,9 @@ services:
       # Format: SHARE=ShareName;/path/inside/container;browsable;readonly;guest;users
       # yes = browsable, no = not readonly (so you can write), no = no guest access, admin = allowed user
       - SHARE=Media;/media;yes;no;no;${smb_user}
+      - SHARE=Data;/data;yes;yes;no;${smb_user}
+
     volumes:
-      # Maps your actual MergerFS media folder to the container
+      # Maps your actual MergerFS media folders to the container
       - ${MEDIA_DIR}:/media
+      - ${DATA_DIR}:/data:ro
