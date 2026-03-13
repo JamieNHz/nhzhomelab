@@ -1,0 +1,19 @@
+services:
+  samba:
+    image: dperson/samba:latest
+    container_name: samba
+    restart: unless-stopped
+    ports:
+      # Standard Windows/Mac SMB ports
+      - "${SMB_PORT_139}:139"
+      - "${SMB_PORT_445}:445"
+    environment:
+      # Format: USER=username;password
+      # Change 'yourpassword' to a secure password of your choice
+      - USER=${smb_user};${smb_password}
+      # Format: SHARE=ShareName;/path/inside/container;browsable;readonly;guest;users
+      # yes = browsable, no = not readonly (so you can write), no = no guest access, admin = allowed user
+      - SHARE=Media;/media;yes;no;no;${smb_user}
+    volumes:
+      # Maps your actual MergerFS media folder to the container
+      - ${MEDIA_DIR}:/media
