@@ -1,6 +1,6 @@
 services:
   samba:
-    image: dperson/samba:latest
+    image: ghcr.io/servercontainers/samba:latest
     container_name: samba
     restart: unless-stopped
     ports:
@@ -8,15 +8,16 @@ services:
       - "${SMB_PORT_139}:139"
       - "${SMB_PORT_445}:445"
     environment:
-      # Format: USER=username;password
-      # Change 'yourpassword' to a secure password of your choice
-      - USER=${smb_user};${smb_password}
-      # Format: SHARE=ShareName;/path/inside/container;browsable;readonly;guest;users
-      # yes = browsable, no = not readonly (so you can write), no = no guest access, admin = allowed user
-      - SHARE=Media;/media;yes;no;no;${smb_user}
-      - SHARE=Data;/data;yes;yes;no;${smb_user}
+      # 1. Create your user and tie it perfectly to your host IDs
+      - ACCOUNT_${smb_user}=${smb_password}
+      - UID_${smb_user}=${PUID}
+      - GID_${smb_user}=${PGID}
+      
+      - "SAMBA_VOLUME_CONFIG_media=[Media]; path=/media; valid users = ${smb_user}; guest ok = no; read only = no; browseable = yes"
+      
+      # 3. The Data Share (Read-Only vault for Nextcloud)
+      - "SAMBA_VOLUME_CONFIG_data=[Data]; path=/data; valid users = ${smb_user}; guest ok = no; read only = yes; browseable = yes"
 
     volumes:
-      # Maps your actual MergerFS media folders to the container
-      - ${MEDIA_DIR}:/media
-      - ${DATA_DIR}:/data:ro
+      - "${MEDIA_DIR}:/media"
+      - "${DATA_DIR}:/data:ro"
